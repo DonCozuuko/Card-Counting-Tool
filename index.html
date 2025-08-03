@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Counting Bitch!</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+</head>
+<body onload="reload()">
+    
+    <div class="img_container">
+        <img id="card_img" src="./card_assets/back_of_card.png" width="140" height="190">
+        <canvas id="end_screen_stats_chart"></canvas>
+        
+        <form id="count_form">
+            <label>Count:</label>
+            <input type="text" id="count_input">
+        </form>
+        <!-- <button type="button" id="draw_new_card_btn">Change Card</button> -->
+        <button id="incr_num_decks" onclick="incrNumDecks()">+</button>
+        <button id="decr_num_decks" onclick="decrNumDecks()">-</button>
+
+        <p id="start_msg">Press Enter To Start</p>
+        <p id="play_again_msg">Press Enter to Play Again</p>
+
+        <p id="card_rank">Card Rank: Null</p>
+        <p id="card_index">Card Index: Null</p>
+        <p id="players_true_count_header">Player's True Count:</p>
+        <p id="players_true_count_counter">0</p>
+        <p id="actual_true_count_header">Actual True Count:</p>
+        <p id="actual_true_count_counter">0</p>
+        
+        <p id="number_of_decks">Decks:</p>
+        <p id="deck_counter">1</p>
+
+        <p id="deck_timer">Timer:</p>
+        <p id="timer">min:sec:ms</p>
+        <p id="average_time_per_card_header">Avg Time/card</p>
+        <p id="average_time_per_card_counter"></p>
+
+        <dialog id="blurb_dialog">
+            <p id="blurb">
+                Fuck the House (not House MD).<br>
+                <br>
+                Rules are Simple:<br>
+                 - 2, 3, 4, 5, 6 have a count value of 1<br>
+                 - 7, 8, 9 have a count value of 0<br>
+                 - 10, J, Q, K, A have a count value of -1<br>
+                <br>
+                Most institutions shuffle in multiple decks (6+) to make it harder for people<br>
+                to keep track of an accurate true count, and thus gaining an edge.<br>
+                So I've also added the option to add multiple decks to current session<br>
+                to train for the grown-up table.<br>
+                <br>
+                Top ten best times + avg time are weighted by deck size and are cached for display,<br>
+                so you can come back anytime in case you want to screenshot and humbly brag<br> 
+                in a linkedin post about your accomplishments while repeating the<br> 
+                same bumper sticker cliches about 'hard work'.<br>
+                <br>
+                Keybindings for the real ones:<br>
+                 - q => 1<br>
+                 - w => 0<br>
+                 - e => -1<br>
+                 
+            </p>
+            <button onclick="blurb_dialog.close()">Close</button>
+        </dialog>
+        <button id="blurb_btn" onclick="blurb_dialog.showModal()">Click for Rules</button>
+    </div>
+
+    <script src="./deckmode.js"></script>
+</body>
+</html>

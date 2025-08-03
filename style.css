@@ -1,0 +1,189 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.img_container {
+    display: flex;
+    justify-content: center; /* horizontal center */
+    align-items: center;     /* vertical center */
+    height: 100vh;
+    gap: 0;
+}
+
+#card_img {
+    display: block;
+    margin-bottom: 60px;
+}
+
+#blurb_btn {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin-top: 210px;
+}
+
+#end_screen_stats_chart {
+    display: none;
+    margin-top: 50px;
+    margin-right: 110px;
+    width: 100%;
+    max-width: 1000px;
+}
+
+#average_time_per_card_header {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    margin-bottom: 430px;
+}
+
+#average_time_per_card_counter {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    margin-bottom: 360px;
+    font-size: 30px;
+}
+
+#count_form {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: calc(50% + 110px);
+    margin-bottom: 130px;
+}
+
+#count_form input {
+    display: flex;
+    text-align: center;
+    width: 50px;
+    font-size: 30px;
+}
+
+#count_form label {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+#incr_num_decks {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin-right: 250px;
+    margin-bottom: 330px;
+}
+
+#decr_num_decks {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin-right: 370px;
+    margin-bottom: 330px;
+}
+
+#start_msg {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin-bottom: 590px;
+    font-size: 30px
+}
+
+#play_again_msg {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin-bottom: 590px;
+    font-size: 30px;
+    visibility: hidden;
+}
+
+#card_index {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin-bottom: 430px;
+}
+
+#number_of_decks {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin-right: 310px;
+    margin-bottom: 430px;
+}
+
+#deck_counter {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin-right: 310px;
+    margin-bottom: 360px;
+    font-size: 30px;
+}
+
+#deck_timer {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin-left: 310px;
+    margin-bottom: 430px;
+}
+
+#timer {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin-left: 310px;
+    margin-bottom: 360px;
+    font-size: 30px;
+}
+
+#card_rank {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin-bottom: 330px;
+}
+
+#players_true_count_header {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin-left: -310px;
+    margin-bottom: 190px;
+}
+
+#players_true_count_counter {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin-left: -310px;
+    margin-bottom: 120px;
+    font-size: 30px;
+}
+
+#actual_true_count_header {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin-left: -310px;
+    margin-bottom: 0px;
+}
+
+#actual_true_count_counter {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin-left: -310px;
+    margin-bottom: -80px;
+    font-size: 30px;
+}
+
+#draw_new_card_btn {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin-top: 220px;
+}
