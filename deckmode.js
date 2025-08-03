@@ -19,7 +19,6 @@ class Deck {
     }
 
     drawNewCard(drawnCardIndex) {
-        // function drawNewCard(shuffleCardList, drawnCardIndex) {
         // returns the file path for a new card in the shuffled deck 
         // (e.g. "./card_assets/back_of_card.png")
         const card_name = this.cardList[drawnCardIndex]
@@ -30,7 +29,7 @@ class Deck {
 }
 
 const Element = {
-    // tag_name
+    // HTMLtag_name
     img_card: document.getElementById("card_img"),
     form_count: document.getElementById("count_form"),
     input_count: document.getElementById("count_input"),
@@ -151,6 +150,7 @@ function startDealing(cardDeck) {
         Element.p_card_rank.innerHTML = `Card Rank: ${getCurrCardRank()}`;
     }
 
+    // Avg Time logic
     Counter.startTimeCapture = Date.now();
     if (Counter.startTimeCapture != Counter.endTimeCapture) {
         Counter.yValues.push(Counter.startTimeCapture - Counter.endTimeCapture);
@@ -158,11 +158,14 @@ function startDealing(cardDeck) {
         Counter.endTimeCapture = Counter.startTimeCapture
     }
 
+    // logic handling regular dealing
     if (Counter.drawnCardIndex < cardDeck.cardListLen - 1) {
         Counter.drawnCardIndex += 1;
         Element.input_count.focus();
     }
+    // logic handling dealing when last card in A deck (out of multiple decks) is currently displayed
     else if (Counter.drawnCardIndex === cardDeck.cardListLen - 1) {
+        // last deck in the mega deck
         if (Counter.currDeckNum === Counter.numberOfDecks) {
             Counter.drawnCardIndex += 1;
         }
@@ -173,6 +176,7 @@ function startDealing(cardDeck) {
             Element.input_count.focus();
         }
     }
+    // logic handling event of pressing enter after the last card in the deck
     else if (Counter.drawnCardIndex === cardDeck.cardListLen) {
         endScreen();
     }
