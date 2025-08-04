@@ -8,8 +8,6 @@ class Deck {
         for (let i = this.cardListLen - 1; i > 0; i--) {
             // random index from 0 to i
             const j = Math.floor(Math.random() * i)
-            // j = randIntFromInterval(0, i);
-            // j = Math.floor(Math.random() * max) + min
             const card1 = this.cardList[i];
             const card2 = this.cardList[j];
             this.cardList[j] = card1;
@@ -48,6 +46,13 @@ const Element = {
     canvas_end_screen_stats_chart: document.getElementById("end_screen_stats_chart"),
     p_average_time_per_card_header: document.getElementById("average_time_per_card_header"),
     p_average_time_per_card_counter: document.getElementById("average_time_per_card_counter"),
+    btn_blurb: document.getElementById("blurb_btn"),
+    btn_stats_graph: document.getElementById("stats_graph_btn"),
+    div_scoreboard_container: document.getElementById("scoreboard_container"),
+    table_scoreboard: document.getElementById("scoreboard"),
+    table_header: document.getElementById("scoreboard_header"),
+    btn_clear_scores: document.getElementById("clear_scores"),
+    btn_hide_actual_true_count: document.getElementById("hide_actual_true_count"),
 }
 
 const Flag = {
@@ -55,6 +60,7 @@ const Flag = {
     endGame: false,
     initTimer: false,
     timerIntverval: 0,
+    actualTrueCountHidden: false,
 }
 
 const Counter = {
@@ -64,11 +70,17 @@ const Counter = {
     actualCount: 0,
     playersCount: 0,
     prevEnd: 0,
+    currentTime: 0,
     startGameTimeMs: 0,
     startTimeCapture: 0,
     endTimeCapture: 0,
     xValues: [],
     yValues: [],
+}
+
+const Scoreboard = {
+    // deckSize: time
+    topTen: new Map(),
 }
 
 const cardDeck = new Deck();
@@ -95,10 +107,26 @@ function decrNumDecks() {
     }
 }
 
+function hideActualTrueCount() {
+    if (!Flag.actualTrueCountHidden) {
+        Element.p_actual_true_count_header.style.visibility = "hidden";
+        Element.p_actual_true_count_counter.style.visibility = "hidden";
+        Element.btn_hide_actual_true_count.innerHTML = "Show";
+        Flag.actualTrueCountHidden = true;
+    }
+    else {
+        Element.p_actual_true_count_header.style.visibility = "visible";
+        Element.p_actual_true_count_counter.style.visibility = "visible";
+        Element.btn_hide_actual_true_count.innerHTML = "Hide";
+        Flag.actualTrueCountHidden = false;
+    }
+}
+
 function updateTimer(startGameTimeMs) {
     const end = Date.now();
     if (end != Counter.prevEnd) {
-        Element.p_timer.innerHTML = formatTime(end - startGameTimeMs)
+        Counter.currentTime = end - startGameTimeMs;
+        Element.p_timer.innerHTML = formatTime(Counter.currentTime);
         Counter.prevEnd = end;
     }
 }
@@ -118,7 +146,7 @@ function startGame(event) {
     if (event.key === "Enter") {
         event.preventDefault();
         startDealing(cardDeck);
-
+        
         // Timer Logic
         if (!Flag.initTimer) {
             Flag.timerIntverval = setInterval(updateTimer, 1, Counter.startGameTimeMs);
@@ -126,6 +154,8 @@ function startGame(event) {
         }
         else if (Flag.endGame) {
             clearInterval(Flag.timerIntverval);
+            Scoreboard.topTen.set(formatTime(Counter.currentTime), Counter.numberOfDecks);
+            endScreen();
         }
     }
 }
@@ -178,16 +208,12 @@ function startDealing(cardDeck) {
     }
     // logic handling event of pressing enter after the last card in the deck
     else if (Counter.drawnCardIndex === cardDeck.cardListLen) {
-        endScreen();
+        Flag.endGame = true;
     }
 }
 
 function endScreen() {
-    Flag.endGame = true;
-    document.removeEventListener("keydown", startGame);
-    document.addEventListener("keydown", playAgainCleanUp);
-
-    // hide elements like a sneaky link
+    // hide + show end screen elements
     Element.img_card.style.visibility = "hidden";
     Element.form_count.style.visibility = "hidden";
     Element.p_play_again_msg.style.visibility = "visible";
@@ -197,7 +223,10 @@ function endScreen() {
     Element.p_players_true_count_counter.style.visibility = "hidden";
     Element.p_card_index.style.visibility = "hidden";
     Element.p_card_rank.style.visibility = "hidden";
-
+    Element.btn_blurb.style.visibility = "hidden";
+    Element.btn_hide_actual_true_count.style.visibility = "hidden";
+    Element.btn_stats_graph.style.display = "flex";
+    // Time Graph
     new Chart("end_screen_stats_chart", {
         type: "line",
         data: {
@@ -213,25 +242,34 @@ function endScreen() {
         options: {
             legend: {display: false},
             scales: {
-                x: {
+                xAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Card Indices',
+                        fontFamily: 'Arial',
+                        fontSize: 14,
+                        fontStyle: 'bold'
+                    },
                     ticks: {
                         autoSkip: false,
                         stepSize: 1,
                     }
-                }
+                }],
+                yAxes: [{
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'ms',
+                        fontFamily: 'Arial',
+                        fontSize: 14,
+                        fontStyle: 'bold'
+                    }
+                }]
             }
         } 
     });
-    
     Element.canvas_end_screen_stats_chart.style.display = "block";
-    Element.p_average_time_per_card_header.style.display = "block";
-    Element.p_average_time_per_card_counter.style.display = "block";
-
-    let sum = 0;
-    Counter.yValues.forEach(x => {
-        sum += x;
-    });
-    let roundedAvg = Math.round((sum / Counter.yValues.length) * 100) / 100;
+    // Average Time
+    let roundedAvg = Math.round((Counter.currentTime / Counter.yValues.length) * 100) / 100;
     if (roundedAvg > 999) {
         roundedAvg = Math.round(((roundedAvg / 1000)) * 100) / 100
         Element.p_average_time_per_card_counter.innerHTML = `${roundedAvg}/s`;  
@@ -239,7 +277,43 @@ function endScreen() {
     else {
         Element.p_average_time_per_card_counter.innerHTML = `${roundedAvg}/ms`;  
     }
+    Element.p_average_time_per_card_header.style.display = "block";
+    Element.p_average_time_per_card_counter.style.display = "block";
+    // Scoreboard + cache
+    Element.btn_clear_scores.style.display = "block";
+    populateScoreBoard();
+    drawScoreBoard();
+    // Clean up listners
+    document.removeEventListener("keydown", startGame);
+    document.addEventListener("keydown", playAgainCleanUp);
     console.log("End of the Road");
+}
+
+
+function populateScoreBoard() {
+    // populates and sorts the scoreboard map based on time
+    const cachedTimesRaw = localStorage.getItem("cachedTimes");
+    let cachedTimesArr;
+    let cachedTimes;
+    if (cachedTimesRaw !== null) {
+        cachedTimesArr = JSON.parse(cachedTimesRaw);
+        cachedTimes = new Map(cachedTimesArr);
+        for (const [key, value] of cachedTimes) {
+            Scoreboard.topTen.set(key, value);
+        }
+    }
+    Scoreboard.topTen = new Map([...Scoreboard.topTen.entries()].sort().reverse().slice(-10));
+    localStorage.setItem("cachedTimes", JSON.stringify([...Scoreboard.topTen])); 
+}
+
+function drawScoreBoard() {
+    let i = Scoreboard.topTen.size;
+    for (const [time, deckSize] of Scoreboard.topTen) {
+        const tableRow = `<tr><td>${i}</td><td>${time}</td><td>${deckSize}</td></tr>`;
+        Element.table_header.insertAdjacentHTML("afterend", tableRow);
+        i--;
+    }
+    Element.div_scoreboard_container.style.display = "flex";
 }
 
 function playAgainCleanUp(event) {

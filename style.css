@@ -1,3 +1,5 @@
+/* Godforsaken file*/
+
 body {
     margin: 0;
     padding: 0;
@@ -29,6 +31,46 @@ body {
     margin-right: 110px;
     width: 100%;
     max-width: 1000px;
+}
+
+#stats_graph_btn {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    margin-left: 380px;
+    margin-bottom: 200px;
+}
+
+#scoreboard_container {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    max-width: 100%;
+    max-height: 100%;
+    width: 220px;
+    height: 230px;
+    border:1px solid black;
+}
+
+table, th, td {
+  border:1px solid black;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+#hide_actual_true_count {
+    display: block;
+    flex-direction: column;
+    position: absolute;
+    margin-right: 500px;
+    margin-top: 20px;
+}
+
+#clear_scores {
+    display: none;
+    position: absolute;
+    margin-right: 380px;
+    margin-bottom: 200px;
 }
 
 #average_time_per_card_header {

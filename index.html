@@ -11,19 +11,17 @@
     
     <div class="img_container">
         <img id="card_img" src="./card_assets/back_of_card.png" width="140" height="190">
-        <canvas id="end_screen_stats_chart"></canvas>
         
         <form id="count_form">
             <label>Count:</label>
             <input type="text" id="count_input">
         </form>
-        <!-- <button type="button" id="draw_new_card_btn">Change Card</button> -->
         <button id="incr_num_decks" onclick="incrNumDecks()">+</button>
         <button id="decr_num_decks" onclick="decrNumDecks()">-</button>
-
+        
         <p id="start_msg">Press Enter To Start</p>
         <p id="play_again_msg">Press Enter to Play Again</p>
-
+        
         <p id="card_rank">Card Rank: Null</p>
         <p id="card_index">Card Index: Null</p>
         <p id="players_true_count_header">Player's True Count:</p>
@@ -39,8 +37,22 @@
         <p id="average_time_per_card_header">Avg Time/card</p>
         <p id="average_time_per_card_counter"></p>
 
+        <button id="hide_actual_true_count" onclick="hideActualTrueCount()">Hide</button>
+
+        <dialog id="stats_dialog">
+            <canvas id="end_screen_stats_chart"></canvas>
+            <button onclick="stats_dialog.close()">Close</button>
+        </dialog>
+        <button id="stats_graph_btn" onclick="stats_dialog.showModal()">Time Graph</button>
+        
         <dialog id="blurb_dialog">
             <p id="blurb">
+                Practical Argument:<br>
+                Playing perfect strategy can only get you so far. To be a true sweat,<br> 
+                you must count cards in order to properly assess the odds and manage risk<br> 
+                to make a better play (i.e. to win some booty).<br>
+                <br>
+                Ethical Argument:<br>
                 Fuck the House (not House MD).<br>
                 <br>
                 Rules are Simple:<br>
@@ -53,12 +65,18 @@
                 So I've also added the option to add multiple decks to current session<br>
                 to train for the grown-up table.<br>
                 <br>
+                <!-- Counting cards at a live table is a very stressful environment.<br>
+                People talking, music blasting, bright lights from where ever. Nevermind the fact that, 
+                getting caught counting will get you thrown out and banned,<br>
+                but the stress of not coming off as a counter to stay in the casino.<br>
+                And and top of that, the dealer is dealing cards at fucking lighting speeds.<br>
+                <br> -->
                 Top ten best times + avg time are weighted by deck size and are cached for display,<br>
                 so you can come back anytime in case you want to screenshot and humbly brag<br> 
                 in a linkedin post about your accomplishments while repeating the<br> 
                 same bumper sticker cliches about 'hard work'.<br>
                 <br>
-                Keybindings for the real ones:<br>
+                Keybindings for the real ones:<br>  
                  - q => 1<br>
                  - w => 0<br>
                  - e => -1<br>
@@ -67,6 +85,17 @@
             <button onclick="blurb_dialog.close()">Close</button>
         </dialog>
         <button id="blurb_btn" onclick="blurb_dialog.showModal()">Click for Rules</button>
+
+        <button id="clear_scores" onclick="localStorage.clear()">Clear Scores</button>
+        <div id="scoreboard_container">
+            <table id="scoreboard">
+                <tr id="scoreboard_header">
+                    <th>Rank</th>
+                    <th>Time(ms)</th>
+                    <th>Deck Size</th>
+                </tr>
+            </table>
+        </div>
     </div>
 
     <script src="./deckmode.js"></script>
