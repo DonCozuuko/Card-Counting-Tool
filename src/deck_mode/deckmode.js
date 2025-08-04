@@ -20,7 +20,7 @@ class Deck {
         // returns the file path for a new card in the shuffled deck 
         // (e.g. "./card_assets/back_of_card.png")
         const card_name = this.cardList[drawnCardIndex]
-        const cardFilePath = "./card_assets/";
+        const cardFilePath = "/card_assets/";
         const full_file_path = cardFilePath + card_name;
         return full_file_path
     }
@@ -52,6 +52,7 @@ const Element = {
     table_scoreboard: document.getElementById("scoreboard"),
     table_header: document.getElementById("scoreboard_header"),
     btn_clear_scores: document.getElementById("clear_scores"),
+    p_yes: document.getElementById("yes"),
     btn_hide_actual_true_count: document.getElementById("hide_actual_true_count"),
 }
 
@@ -120,6 +121,11 @@ function hideActualTrueCount() {
         Element.btn_hide_actual_true_count.innerHTML = "Hide";
         Flag.actualTrueCountHidden = false;
     }
+}
+
+function clearScores() {
+    localStorage.clear()
+    Element.p_yes.style.display = "block";
 }
 
 function updateTimer(startGameTimeMs) {

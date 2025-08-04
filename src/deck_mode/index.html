@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Card Counting Bitch!</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/src/deck_mode/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 </head>
 <body onload="reload()">
     
     <div class="img_container">
-        <img id="card_img" src="./card_assets/back_of_card.png" width="140" height="190">
+        <img id="card_img" src="/card_assets/back_of_card.png" width="140" height="190">
         
         <form id="count_form">
             <label>Count:</label>
@@ -48,9 +48,9 @@
         <dialog id="blurb_dialog">
             <p id="blurb">
                 Practical Argument:<br>
-                Playing perfect strategy can only get you so far. To be a true sweat,<br> 
-                you must count cards in order to properly assess the odds and manage risk<br> 
-                to make a better play (i.e. to win some booty).<br>
+                In Blackjack, playing perfect strategy can only get you so far.<br>
+                Counting cards enables the player to better assess the odds and risk<br>
+                of the current hand to make a more calculated play (i.e. to win some booty).<br>
                 <br>
                 Ethical Argument:<br>
                 Fuck the House (not House MD).<br>
@@ -86,18 +86,19 @@
         </dialog>
         <button id="blurb_btn" onclick="blurb_dialog.showModal()">Click for Rules</button>
 
-        <button id="clear_scores" onclick="localStorage.clear()">Clear Scores</button>
+        <button id="clear_scores" onclick="clearScores()">Clear Scores</button>
+        <p id="yes">Done!</p>
         <div id="scoreboard_container">
             <table id="scoreboard">
                 <tr id="scoreboard_header">
                     <th>Rank</th>
                     <th>Time(ms)</th>
-                    <th>Deck Size</th>
+                    <th>Deck/Hand Size</th>
                 </tr>
             </table>
         </div>
     </div>
 
-    <script src="./deckmode.js"></script>
+    <script src="/src/deck_mode/deckmode.js"></script>
 </body>
 </html>

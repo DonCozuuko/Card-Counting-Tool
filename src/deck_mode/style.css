@@ -73,6 +73,13 @@ table, th, td {
     margin-bottom: 200px;
 }
 
+#yes {
+    display: none;
+    position: absolute;
+    margin-right: 380px;
+    margin-bottom: 150px;
+}
+
 #average_time_per_card_header {
     display: none;
     flex-direction: column;
