@@ -8,7 +8,10 @@ An interactive tool that helps practice card counting in Blackjack. Playing perf
 - Most institutions shuffle in multiple decks (6+) to make it harder for people to keep track of an accurate true count, and thus gaining an edge. So I've also added the option to add multiple decks to current session to train for the grown-up table. Minimum of 1 deck.
 ## Demo
 
-https://github.com/user-attachments/assets/29c7cd9d-ab37-41e0-87c2-dedb4acfdf58
+
+
+https://github.com/user-attachments/assets/74342528-4bd9-4ef3-8215-fd92715c0bcf
+
 _decks were modified to have only a couple cards for demonstration purposes_
 
 ## Quick Start
