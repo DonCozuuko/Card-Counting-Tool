@@ -174,7 +174,7 @@ function startDealing(cardDeck) {
 
         Counter.startGameTimeMs = Date.now();
         Flag.initGame = true;
-        // Counter.drawnCardIndex = ;
+        Counter.drawnCardIndex = 48;
 
         Counter.endTimeCapture = Date.now();
     }
